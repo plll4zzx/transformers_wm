@@ -2870,7 +2870,11 @@ class GenerationMixin:
             next_token_logits = outputs.logits[:, -1, :]
 
             # pre-process distribution
-            next_token_scores = logits_processor(input_ids, next_token_logits)
+            if 'sample_key' in model_kwargs:
+                sample_key = model_kwargs['sample_key']
+                next_token_scores = logits_processor(input_ids, next_token_logits, sample_key)
+            else:
+                next_token_scores = logits_processor(input_ids, next_token_logits)
             next_token_scores = logits_warper(input_ids, next_token_scores)
 
             # Store scores, attentions and hidden_states when required
