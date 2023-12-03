@@ -87,7 +87,7 @@ class LogitsProcessorList(list):
         for processor in self:
             function_args = inspect.signature(processor.__call__).parameters
             if len(function_args) > 2:
-                if not all(arg in kwargs for arg in list(function_args.keys())[2:]):
+                if not all(arg in kwargs for arg in list(function_args.keys())[2:] if arg not in ['sample_key','kwargs']):
                     raise ValueError(
                         f"Make sure that all the required parameters: {list(function_args.keys())} for "
                         f"{processor.__class__} are passed to the logits processor."

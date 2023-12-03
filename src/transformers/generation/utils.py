@@ -2873,8 +2873,7 @@ class GenerationMixin:
 
             # pre-process distribution
             if 'sample_key' in model_kwargs:
-                sample_key = model_kwargs['sample_key']
-                next_token_scores = logits_processor(input_ids, next_token_logits, sample_key)
+                next_token_scores = logits_processor(input_ids, next_token_logits, **model_kwargs)
             else:
                 next_token_scores = logits_processor(input_ids, next_token_logits)
             next_token_scores = logits_warper(input_ids, next_token_scores)
