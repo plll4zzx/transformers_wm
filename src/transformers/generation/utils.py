@@ -1337,6 +1337,8 @@ class GenerationMixin:
 
         for key, value in model_kwargs.items():
             if value is not None and key not in model_args:
+                if key=='sample_key':
+                    continue
                 unused_model_args.append(key)
 
         if unused_model_args:
